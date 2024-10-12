@@ -1,26 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import chatData from "../assets/chatData"; // Import chatData yang berisi daftar chat
 import photos from "../assets/image.js";
 import './Kontak.css';
 
-const Kontak = () => {
-    const [messages] = useState([
-        { id: 'nun', name: 'Nun', message: "Saya dari divisi Programing mau mengadakan lomba.", imgSrc: photos.nurkalam },
-        { id: 'sevian', name: 'Sevian', message: 'By 1 moskop', imgSrc: photos.sevian },
-        { id: 'wandi', name: 'Wandi', message: 'Mie gacoan 2', imgSrc: photos.wandi },
-        { id: 'riyan', name: 'Riyan', message: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad laborum ea iusto quod blanditiis fuga nisi non assumenda veritatis ab modi sapiente, quaerat ratione porro nam a distinctio doloribus nostrum!', imgSrc: photos.riyan },
-        { id: 'rafli', name: 'Rafli', message: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad laborum ea iusto quod blanditiis fuga nisi non assumenda veritatis ab modi sapiente, quaerat ratione porro nam a distinctio doloribus nostrum!', imgSrc: photos.rafli },
-        { id: 'fajar', name: 'Fajar', message: 'Anda: Oke', imgSrc: photos.fajar },
-        // Data lainnya...
-    ]);
-
+const Kontak = ({ onSelectContact }) => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    const highlightText = (text, query) => {
-        if (!query) return text; 
-        const regex = new RegExp(`(${query})`, 'gi'); 
-        const parts = text.split(regex); 
+    // Fungsi untuk mencari semua pesan dari setiap kontak
+    const searchMessages = (contact) => {
+        const chatHistory = chatData[contact];
+        const filteredMessages = chatHistory.filter(({ message }) =>
+            message.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        return filteredMessages;
+    };
 
-        return parts.map((part, index) => 
+    // Ambil pesan terakhir dari setiap kontak
+    const messages = Object.keys(chatData).map(contact => {
+        const lastMessage = chatData[contact][chatData[contact].length - 1];
+        const searchResults = searchMessages(contact); // Cari chat yang cocok dengan query
+        const isHighlighted = searchResults.length > 0; // Apakah ada pesan yang cocok
+
+        return {
+            id: contact,
+            name: contact,
+            message: lastMessage.message,
+            time: lastMessage.time, // Tambahkan waktu pesan terakhir
+            imgSrc: photos[contact], // Ambil foto dari objek photos
+            isHighlighted,
+        };
+    });
+
+    const highlightText = (text, query) => {
+        if (!query) return text;
+        const regex = new RegExp(`(${query})`, 'gi');
+        const parts = text.split(regex);
+        return parts.map((part, index) =>
             part.toLowerCase() === query.toLowerCase() ? (
                 <span key={index} style={{ color: "white", fontWeight: "bold" }}>{part}</span>
             ) : (
@@ -29,24 +44,15 @@ const Kontak = () => {
         );
     };
 
-    const filteredMessages = messages.filter(({ name, message }) => 
+    // Filter hanya kontak yang punya hasil pencarian, atau tampilkan semua jika query kosong
+    const filteredMessages = messages.filter(({ name, message, isHighlighted }) =>
         name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        message.toLowerCase().includes(searchQuery.toLowerCase())
+        message.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        isHighlighted
     );
 
-    useEffect(() => {
-        const textElements = document.querySelectorAll('.message-text');
-        textElements.forEach(el => {
-            if (el.scrollWidth > el.offsetWidth) {
-                el.classList.add('pesan');
-            } else {
-                el.classList.remove('pesan');
-            }
-        });
-    }, [filteredMessages]);
-
-    const renderRow = ({ id, name, message, imgSrc }) => (
-        <tr key={id} className="w-full hover">
+    const renderRow = ({ id, name, message, imgSrc, time }) => (
+        <tr key={id} className="w-full hover" onClick={() => onSelectContact(id)}>
             <td>
                 <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -54,12 +60,13 @@ const Kontak = () => {
                             <img src={imgSrc} alt={name} />
                         </div>
                     </div>
+                    {/* Tooltip hanya menampilkan pesan terakhir */}
                     <div className="tooltip tooltip-bottom" data-tip={message}>
                         <div className="font-bold text-lg text-start">
                             {highlightText(name, searchQuery)}
                         </div>
                         <div className="message-text opacity-50 text-lg truncate w-[14.5vw] text-start">
-                            {highlightText(message, searchQuery)}
+                            {highlightText(message, searchQuery)} - <span className="time">{time}</span>
                         </div>
                     </div>
                 </div>
@@ -72,23 +79,13 @@ const Kontak = () => {
             <h1 className="text-3xl font-semibold py-8 mx-10">Private Chat</h1>
             <div className="flex justify-center px-5">
                 <label className="input input-bordered flex items-center gap-2 w-full">
-                    <input 
-                        type="text" 
-                        className="grow" 
+                    <input
+                        type="text"
+                        className="grow"
                         placeholder="Search"
-                        value={searchQuery} 
-                        onChange={(e) => setSearchQuery(e.target.value)} 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                        className="h-4 w-4 opacity-70">
-                        <path
-                        fillRule="evenodd"
-                        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                        clipRule="evenodd" />
-                    </svg>
                 </label>
             </div>
             <div className="overflow-x-hidden mt-8 h-[85vh]">
@@ -100,6 +97,6 @@ const Kontak = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Kontak;
