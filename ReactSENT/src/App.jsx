@@ -5,6 +5,7 @@ import './App.css'
 import SideBar from './components/SideBar';
 import Kontak from './components/Kontak';
 import Chat from './components/Chat'
+import chatData from './assets/chatData';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined
@@ -14,6 +15,7 @@ import {
 
 const { Header, Sider } = Layout;
 function App() {
+  const [selectedContact, setSelectedContact] = useState("Nun")
   const [collapsed, setCollapsed] = useState(false);
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -22,8 +24,8 @@ function App() {
   return (
     <div className='main'>
         <SideBar/>
-        <Kontak/>
-        <Chat/>
+        <Kontak onSelectContact={setSelectedContact} />
+        <Chat contactId={selectedContact} chatData={chatData} />
     </div>
   )
 }
