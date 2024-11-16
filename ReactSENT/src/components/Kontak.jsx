@@ -65,7 +65,7 @@ const Kontak = ({ onSelectContact }) => {
                         <div className="font-bold text-lg text-start">
                             {highlightText(name, searchQuery)}
                         </div>
-                        <div className="message-text opacity-50 text-lg truncate w-[14.5vw] text-start">
+                        <div className="message-text opacity-50 text-lg truncate w-[14.5vcd w] text-start">
                             {highlightText(message, searchQuery)} - <span className="time">{time}</span>
                         </div>
                     </div>
@@ -73,6 +73,8 @@ const Kontak = ({ onSelectContact }) => {
             </td>
         </tr>
     );
+
+
 
     return (
         <div className="w-[22vw] border-gray-700 border-r">
