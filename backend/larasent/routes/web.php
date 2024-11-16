@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return ['Laravel' => 'a'];
-});
+// Route::get('/', function () {
+//     return ['Laravel' => 'a'];
+// });
 
 require __DIR__.'/auth.php';

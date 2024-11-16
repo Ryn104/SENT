@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\user\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('/messages', [ChatController::class, 'message']);
+
+Route::post('/login', [LoginController::class, 'login']);

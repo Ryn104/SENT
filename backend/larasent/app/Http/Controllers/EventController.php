@@ -9,11 +9,10 @@ class EventController extends Controller
 {
     public function sendMessage(Request $request)
     {
-        $message = $request->input('message');
+        // $message = $request->input('message');
 
-        // Memicu event MessageSent
-        event(new MessageSent($message));
+        // event(new MessageSent($message));
 
-        return response()->json(['status' => 'Message sent successfully!']);
+        // return response()->json(['status' => 'Message sent successfully!']);
     }
 }
