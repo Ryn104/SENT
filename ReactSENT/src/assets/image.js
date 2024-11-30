@@ -10,6 +10,7 @@ import microphone from './profile/microphone.png'
 import stiker from './profile/stiker.png'
 import addimage from './profile/addimage.png'
 import search from './profile/search.png'
+import logo from './image/logo.png'
 // Tambahkan impor lainnya di sini
 
 const photos = {
@@ -25,6 +26,7 @@ const photos = {
   stiker,
   addimage,
   search,
+  logo,
   // Tambahkan objek lainnya di sini
 };
 
