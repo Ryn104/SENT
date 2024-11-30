@@ -33,10 +33,10 @@ const Chat = ({ contactId, chatData }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/api/messages", {
+            const response = await fetch("http://192.168.105.1:8000/api/messages", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, message }),
+                body: JSON.stringify({ username, messages }),
             });
 
             if (response.ok) {
@@ -101,7 +101,7 @@ const Chat = ({ contactId, chatData }) => {
                 {messages.map((message, index) => (
                     <div key={index} className="chat chat-start">
                         <div className="chat-bubble max-w-[52%]">
-                            <strong>{message.username}</strong>: {message.message}
+                            <strong>{message.username}</strong>: <p>{message.messages}</p> 
                         </div>
                     </div>
                 ))}
@@ -112,7 +112,7 @@ const Chat = ({ contactId, chatData }) => {
                 <form
                     onSubmit={submit}
                     className="input input-bordered flex items-center gap-2 w-full h-[45px]"
-                >
+                    method="post">
                     <input
                         type="text"
                         className="grow text-lg"

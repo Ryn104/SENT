@@ -35,6 +35,10 @@ const chatData = {
         { sender: "Riyan", message: "Mantap! Semoga semua sesuai harapan dan kita bisa dapat pengalaman yang berharga.", time: "14:12" },
         { sender: "Anda", message: "Pastinya! Kita juga bisa saling bantu kalau ada kesulitan nanti. Semangat terus ya!", time: "14:14" },
     ],
+    Rafli: [
+        { sender: "Anda", message: "Mantap! Semoga semua sesuai harapan dan kita bisa dapat pengalaman yang berharga.", time: "14:12" },
+        { sender: "Rafli", message: "Pastinya! Kita juga bisa saling bantu kalau ada kesulitan nanti. Semangat terus ya!", time: "14:14" },
+    ],
 };
 
 export default chatData;
