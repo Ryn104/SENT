@@ -9,7 +9,9 @@ class ChatController extends Controller
 {
     public function message(Request $request) {
         event(new MessageSent($request->input(key: 'username'), $request->input(key: 'messages')));
-
-        return []; 
+        
+        return response()->json([
+            'success' => true,
+        ], 200); 
     }
 }
