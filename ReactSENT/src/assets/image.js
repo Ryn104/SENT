@@ -11,6 +11,8 @@ import stiker from './profile/stiker.png'
 import addimage from './profile/addimage.png'
 import search from './profile/search.png'
 import logo from './image/logo.png'
+import github from './image/github.png'
+import google from './image/google.png'
 // Tambahkan impor lainnya di sini
 
 const photos = {
@@ -27,7 +29,8 @@ const photos = {
   addimage,
   search,
   logo,
-  // Tambahkan objek lainnya di sini
+  github,
+  google,
 };
 
 export default photos;

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import photos from "../assets/image.js";
 import './login.css';
 
-const Log = () => {
+const Reg = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -83,7 +83,7 @@ const Log = () => {
                             </div>
                             <div className="form-control mt-6">
                                 <button className="mx-auto btn bg-gray-600 input-bordered w-[50%]" disabled={loading}>
-                                    {loading ? 'Logging in...' : 'Login'}
+                                    {loading ? 'Register in...' : 'Register'}
                                 </button>
                             </div>
                             <span className="label-text text-gray-500 text-center my-5 text-lg">or continue with</span>    
@@ -95,7 +95,7 @@ const Log = () => {
                                     <img src={photos.github} alt="" className="xl:w-8" />
                                 </div>
                             </div>
-                            <span className="label-text text-gray-500 text-center my-5 text-lg">Don’t have an account yet?<a href="#" className="text-gray-500 alt link link-hover" onClick={() => navigate('/register')}> Register now</a></span>    
+                            <span className="label-text text-gray-500 text-center my-5 text-lg">Don’t have an account yet?<a href="#"  className="text-gray-500 alt link link-hover" onClick={() => navigate('/login')}> Register now</a></span>    
                         </div>
                     </form>
                 </div>
@@ -106,4 +106,4 @@ const Log = () => {
     );
 };
 
-export default Log;
+export default Reg;
